@@ -1,0 +1,11 @@
+#summary One-sentence summary of this page.
+#labels manaul
+
+= AimoFramework Manaul =
+
+First version manaul .
+
+
+= Details =
+
+[http://www.aimosoft.cn/manaul]
