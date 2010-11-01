@@ -72,13 +72,17 @@ class Aimo_Form
         }
         
         if (isset($options['fileConfig']) && $options['fileConfig'] ) {
-            $form_path = isset($options['basePath'])?$options['basePath']
-                        :realpath(dirname(__FILE__).'/../../app/forms');
-            $params = Aimo_Controller::getInstance()->_params;
-            
-            $config_file = $form_path.DIRECTORY_SEPARATOR.$params['_m']
-                        .DIRECTORY_SEPARATOR.$params['_c'].'_'.$params['_a'].'.php';
-            
+            //Manaul set form config file.
+			if (isset($options['configFile'])){
+				$config_file = $options['configFile'];
+			}else {
+				$form_path = isset($options['basePath'])?$options['basePath']
+							:realpath(dirname(__FILE__).'/../../app/forms');
+				$params = Aimo_Controller::getInstance()->_params;
+				
+				$config_file = $form_path.DIRECTORY_SEPARATOR.$params['_m']
+							.DIRECTORY_SEPARATOR.$params['_c'].'_'.$params['_a'].'.php';
+            }
             $form_options = array();
                 
             if (is_file($config_file)) {
