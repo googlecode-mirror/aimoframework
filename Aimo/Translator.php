@@ -235,7 +235,8 @@ class Aimo_Translator{
     /**
      * Repair function
      * str_replace result which also contains key to translate 
-     * @return void
+     * @param  string $lang_to 
+	 * @return string
      */
     protected function re($lang_to)
     {
