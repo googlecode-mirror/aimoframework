@@ -606,6 +606,11 @@ class Aimo_Controller{
             }
             $url    .= implode('/',$mvc_params)."/";
             $tmp_url = '';
+			foreach($params as $k => $v){
+				if(!isset($v) || (string)$v ===''){
+					unset($params[$k]);
+				}
+			}
             if (count($params)) {
                 $tmp_url = http_build_query($params,'_'); 
                 if (strpos($tmp_url,'_first_') !== false) {
