@@ -175,6 +175,11 @@ class Aimo_Translator{
      * Get translation content.
      * 
      * Support sprintf method
+     * Support language Reference. Example:
+     * array(
+     *       'username' =>'myusername',
+     *       'username_not_empty' => '{username} can not empty!',
+     *    )
      * @param  String $key
      * @return String
      */
@@ -196,7 +201,7 @@ class Aimo_Translator{
         if (isset($this->_langData)) {
             if (isset($this->_langData[$key])) {
                 $lang_to = vsprintf($this->_langData[$key],$args);
-                return $lang_to;
+                return $this->re($lang_to);
             }
         }
 
@@ -225,6 +230,29 @@ class Aimo_Translator{
             }
         }
 
-        return $lang_to;
+        return $this->re($lang_to);
+    }
+    /**
+     * Repair function
+     * str_replace result which also contains key to translate 
+     * @return void
+     */
+    protected function re($lang_to)
+    {
+        if (strpos($lang_to,'{') === false) {
+            return $lang_to;
+        }
+        preg_match_all('/\{([0-9a-z\-\_]+)\}/i',$lang_to,$matches);
+        if (!isset($matches[1]) || !is_array($matches[1])) {
+            return $lang_to;
+        }
+        foreach($matches[1] as $newkey){
+            if(isset($this->_langData[$newkey])){
+                $lang_to = str_replace('{'.$newkey.'}',
+                                $this->_langData[$newkey],$lang_to);
+            }
+        }
+        
+        return $lang_to;  
     }
 }
