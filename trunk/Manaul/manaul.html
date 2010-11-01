@@ -1,0 +1,1058 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>AimoFramework 使用手册</title>
+<meta name="keywords" content="AimoFramework,Aimosoft,PHP framework,AimoFramwork Manaul,AimoFramwork handbook"  />
+<meta name="description" content="AimoFramework 使用手册，AimoFramwork(AF)是一个简洁的PHP框架。" />
+<style type="text/css">
+body{font-family:"Microsoft YaHei","Arial",Simsun;}
+.Title {color:#C00;}
+.list li{margin:5px;}
+p{text-indent:2em;line-height:1.5em;margin:5px 0px;clear:both;}
+.totop{float:right;font-size:12px;}
+.clear{clear:both;}
+h3{clear:both;}
+h4{margin-left:2em;clear:both;}
+pre{font-family:Consolas,"Microsoft YaHei";color:#3869aa;font-size:14px;background-color:#0c1021;max-width:680px;margin-left:28px;line-height:1.6em;padding:1em;}
+.k{color:#d8de2b;}
+.q{color:#55ce33;}
+.c{color:#aeaeae;}
+#footer{text-align:center;}
+</style>
+</head>
+
+<body>
+<a name="top"></a>
+<h2 class="Title">AimoFramework 使用手册</h2>
+<br/>
+
+<div style="border:1px dashed #333;">
+<h3> 目录</h3>
+<ul class="list">
+    <li>第一章、<a href="#about">简介</a>(About AimoFramework)</li>
+    <li>第二章、<a href="#sumary">MVC综述</a>(AimoFramework's MVC description)
+    	<ul>
+        <li>2.1 <a href="#goal" >AimoFramwork目标</a></li>
+        <li>2.2 <a href="#require">PHP版本要求</a></li>
+        <li>2.3 <a href="#advise">开发建议</a></li>
+        <li>2.4 <a href="#dir">目录结构</a></li>
+        <li>2.5 <a href="#rewrite">URL重写</a></li>
+        <li>2.6 <a href="#autoloader">类自动加载</a></li>
+        </ul>
+    </li>
+    <li>第三章、<a href="#Aimo_Controller">控制器</a>(Controller)
+    	<ul>
+        	<li>3.1 <a href="#params">获取控制器参数</a></li>
+        	<li>3.2 <a href="#module">模块</a> (Module)</li>
+        	<li>3.3 <a href="#controllers">控制器</a>(Controller)</li>
+        	<li>3.4 <a href="#actions">动作</a> (Action)</li>
+        	<li>3.5 <a href="#urls">URL统一控制 url() 函数</a></li>
+        	<li>3.6 <a href="#advance">高级应用(如何用于认证)</a></li>
+        </ul>
+    </li>
+    <li>第四章、<a href="#view" >视图</a>(View)
+    	<ul>
+        	<li>4.1 <a href="#tplext">模板扩展名</a></li>
+            <li>4.2 <a href="#usethis">应用控制器中变量、方法</a></li>
+            <li>4.3 <a href="#spectpl">指定模板</a></li>
+            <li>4.4 <a href="#include">模板引入</a></li>
+        </ul>
+    </li>
+    <li>第五章、<a href="#Aimo_Form">表单自动化</a>(Form & Data validation &amp; Data filter)
+    	<ul>
+        	<li>5.1 <a href="#form_in_action">动作中实例化表单</a></li>
+            <li>5.2 <a href="#element">新建表单元素</a></li>
+            <li>5.3 <a href="#form_in_view">视图中生成表单</a></li>
+            <li>5.4 <a href="#validation">表单验证</a></li>
+            <li>5.5 <a href="#filter">表单数据过滤</a></li>
+            <li>5.6 <a href="#form_error">表单错误显示</a></li>
+            <li>5.7 <a href="#form_i18n">表单国际化</a></li>
+            <li>5.8 <a href="#form_config">配置文件中生表单</a></li>
+            <li>5.9 <a href="#form_values">获取验证和过滤后的数据</a></li>
+        </ul>
+    </li>
+    <li>第六章、<a href="#captcha">验证码</a>(Captcha)
+    	<ul>
+          <li>6.1 <a href="#gen_captcha">生成验证码</a></li>
+       	  <li>6.2 <a href="#inter_form">与表单集成</a></li>
+        </ul>
+    </li>
+    <li>第七章、<a href="#Aimo_Db">数据库操作</a>(Database)
+    	<ul>
+        	<li>7.1 <a href="#factory">工厂模式</a></li>
+        	<li>7.2 <a href="#fether">特性</a></li>
+        	<li>7.3 <a href="#fetchrow">取单行数据</a>(fetchRow)</li>
+        	<li>7.4 <a href="#fetchone">取单一字段数据</a>(fetchOne)</li>
+        	<li>7.5 <a href="#fetchall">取所有数据</a> (fetchAll)</li>
+        	<li>7.6 <a href="#pairs">取键值对数据</a>(fetchPairs)</li>
+   	        <li>7.7 <a href="#update">数组插入、更新、删除</a></li>
+        	<li>7.8 <a href="#limit">生成Limit 语句</a></li>
+        </ul>
+    </li>
+    <li>第八章、<a href="#Aimo_Translator">国际化</a>(I18N)</li>
+    <li>第九章、<a href="#Aimo_Debug">调试</a>(Debug)</li>
+    <li>第十章、<a href="#Aimo_Aes">AES加密解密</a>
+    	<ul>
+          <li>10.1 <a href="#passowrd_login">密码登录实例</a></li>
+       	  <li>10.2 <a href="#cookie">Cookie加密</a></li>
+        </ul>
+    </li>
+    <li>第十一章、<a href="#example">实例</a>(AimoFramework Example for a guestbook)</li>
+</ul>
+</div>
+<div>
+  <h3>第一章、简介(About AimoFramework)</h3>
+    <a name="about" />
+    <p>
+   	一句话，AimoFramework(以下简称AF)是一个简化版本的ZendFramework，如果你用过ZendFramework那么一切会变得非常简单，模块控制器原理基本一样。但与ZF有很大的不同之处在于，控制器与视图基本上合二为一了,视图语法完全等同于PHP语法。AF 致力于发展为一个灵活、易用、稳定的框架，AF目前只是一个测试版本，AF会朝此目标发展而努力。</p>
+    <p>灵活与易用一直是一个矛盾，相信AF也不会跑出这个怪圈。当你为用Zend_Form创建一个多列表单而感到头痛时，AF暂时性的解决了这个问题，在AF中你可以随意建立任意形式的表单，表单布局随意发挥。当然AF没有ZendFramework那么优雅、散偶合、纯面向对象。但是个人感觉在web开发中尤其在大中型web开发中，我们不可能也没有必要做到事事都变成面向对象，因为我们需要考虑到程序运行效率、开发效率而做到有所取舍。我们追求完美，但不能事事完美！</p>
+    <div class="totop"><a href="#top">↑TOP</a></div>
+  <h3>第二章、MVC综述 (AimoFramework's MVC description)</h3>
+    <a name="sumary" />
+    <p>
+   	AF 的主要构成部分为Controller ，全部的控制器与视图控制工作都有 Aimo_Controller 类来完成。控制器分为Module、Controller及 Action 组成 。 Aimo_Controller 是一个 单例 (sington) 类，全站只会实例化一个Aimo_Controller 类，然后需要指定模块目录， 默认模块为  front 模块，front 也是控制器找的第一个模块，如果不存在则向其它的模块中找。</p>
+    <p>什么是模块(Module)？</p>
+    <p>模块是所有控制器的集合。实际应用中，我们可以把网站前台所有内容都放在front模块中，后台管理我们可以建立一个叫admin的模块。AF的模块只与目录名有关，以admin 模块为例，如果我们需要改后台模块的名称(路径)只需要改模块的名称即可，不需要在 与控制器相关的类中做任何修改，还需要修改的一点是 在初始化 Aimo_Controller 类后，通过 addModules 函数指定修改相关模块名称。模块名称可以以数组的形式放在配置文件中。</p>
+    <p>什么 是控制器(Controller)?</p>
+    <p>控制器是动作(actions)的集合，是一个扩展为 Aimo_Controller 的一个类。我们可以把具有一些相关功能的动作放到一个控制器中。我们以用户为例，可以把用户注册、登录、修改放到一个控制器中。第个模块建议有一个默认的控制器index。 </p>
+    <p>什么 是动作(Action)？</p>
+  <p>动作是具体实现某个功能的函数，动作包含在控制器中 命名方式以小写字母、下划线_ 加Action结尾的函数。还以用户管理为例，如果我们要实现用户列表功能可以命名为 listAction();</p>
+    <h4>2.1 AimoFramework 目标</h4>
+    <a name="goal" />
+	<p>
+    AF致力与发展成为一个易用性与灵活性具佳及功能强大的框架，从诞生之初AF的目标只是为了自有项目的开发方便，肯定会对具有其它需要的情况考虑不周，但是我们会不断的完善，尽量使AF的应用更加广泛。在以后的发展过程中，AF不会考虑把类库做到大而全，只会集成一些常用功能。因为AF算是一个松偶合的框架，你完成可以写自己的类，只需要按一定的命名方式即可，即使按自己的命名也完全可以使用。
+    </p>
+	<p class="Title">AF会继续完善控制器、视图、及表单自动化。将来可能会把视图进行独立。</p>
+	<p class="Title">AF会致力于效率的提升，特别针对大型站点做特殊的优化。</p>    
+    <h4>2.2 PHP版本要求</h4>
+    <a name="require" />
+    <p>
+    	建议PHP版本为 5.2以上，目前对PHP版本为做太多的测试。
+    </p>
+    <h4>2.3 开发建议</h4>
+    <a name="advise" />
+    <p>建议遵循ZendFramework的编码规范。</p>
+    <p>建议遵循AF推荐的目录结构。</p>
+    <p>建议使用bootstrap文件把所有的初始化工作都放在这个文件中，Controller初始化除外。</p>
+    <h4>2.3 目录结构</h4>
+    <a name="dir" />
+	<p>
+    	AF 推荐以下目录结构
+    </p>
+    <p>
+	<pre>
+app                                  //应用目录
+  languages                          //语言目录
+    cn                               //中文语言
+      common.php                     //默认通用语言文件
+      front.php                      //模块语言文件
+      admin.php
+    en                               //英文语言目录
+  modules                            //模块目录
+    front                            //默认模块目录
+      index.php                      //默认控制器文件
+    admin                            //管理模块目录
+      index.php                      //默认控制器
+    other                            //其它控制器目录
+  forms                              //表单配置文件目录
+    front                            //默认模块表单目录
+      index_index.php                //默认控制器_默认动作表单
+      index_add.php                  //默认控制器_添加动作表单
+    admin
+  templets                           //模板目录
+    front                            //默认模块目录
+      index                          //默认控制器目录
+        index.phtml                  //默认首页模板
+        list.phtml                   //其它模板
+    admin
+      index
+  bootstrap.php                      //程序初始化文件
+  config.php                         //配置文件                
+library                              //类库文件
+  Aimo                               //AimoFramework类文件目录
+  Other                              //其它类文件目录
+  functions                          //函数目录
+    common.php                       //通用函数文件
+public                               //站点绑定目录
+  index.php                          //入口文件，控制器初始化文件
+	</pre>
+    </p>
+    <h4>2.5 URL重写</h4>
+    <a name="rewrite" />
+    <p>
+    	AimoFramework 需要根据URL模式选择是否启用URL 重写，如果想获得好看的URL，推荐开启URL重写。URL重写规则与ZendFramework完全一样。
+        <pre>
+# apache 重写规则
+RewriteEngine On
+RewriteCond %{REQUEST_FILENAME} -s [OR]
+RewriteCond %{REQUEST_FILENAME} -l [OR]
+RewriteCond %{REQUEST_FILENAME} -d
+RewriteRule ^.*$ - [NC,L]
+RewriteRule ^.*$ index.php [NC,L]
+        </pre>
+    </p>
+    <p>
+    	Nginx 重写规则
+        <pre>
+
+if (!-e $request_filename) {
+    rewrite ^.*$ /index.php last;
+}
+        </pre>
+    </p>
+    <h4>2.6 类自动加载</h4>
+    <a name="autoloader" />
+    <p>
+        AF并没有把自动加载功能写倒框架里面，涉及到自动加载的地方有两个部分。
+    </p>
+    <p>
+        一、自动加载AF相关类库，AF类的命名机制与ZendFramework类似，所以可以自己写自动加载函数
+        <pre>
+/**
+ * Auto load classes
+ * @param  String $classname
+ * @return void
+ */
+function autoload($classname)
+{
+    if(strpos($classname,'_') === false){
+		return;
+	}
+    $dirsPath  = str_replace("_",DIRECTORY_SEPARATOR,$classname);
+    //LIB_ROOT 为 library 的路径 
+    $classPath = LIB_ROOT.$dirsPath.".php";
+    
+    require_once($classPath);  
+}
+        </pre>
+    </p>
+    <p>
+        二、关于控制器的加载，实际是在Aimo_Controller 手动 require 的。
+    </p>
+    <div class="totop"><a href="#top">↑TOP</a></div>
+	<h3>第三章、控制器(Controller)</h3>
+    <a name="Aimo_Controller" />
+    <p>
+    	AF 的控制器只有一个类即 Aimo_Controller。 此类负责完成 模块，控制器，动作的全部功能。要用 AF 这也是一个必须需要初始化的一个类。建议在 入口文件，即 public/index.php 中初始化此类。
+    <pre>
+try {
+//Controller 为单例模式 不需要用new 关键字初始化
+  Aimo_Controller::getInstance()            
+//APP_ROOT 一般为 app 目录 
+              ->setAppRoot(APP_ROOT)
+//baseUrl 为 URL中相对于 /public 的目录 ，如果绑定public 目录为站点根目录 则此值为空
+              ->setBaseUrl($_CONFIG["baseUrl"])
+//addModules 方法 为需要指定的 模块数组，如果有其它的模块必须指定 如 array('admin','member')
+//注意默认模块 front不需要指定。
+              ->addModules(array($_CONFIG['adminDir'],'company'))
+// 最后运行 run 方法，run 方法 初即化控制器一系列参数 寻找控制器，执行action 方法。
+              ->run();  
+//Aimo_Debug::dump($controller);
+} catch (Exception $e) {
+// Can set 404 page here!
+//可以对找不到的控制器与动作做 404 处理
+    echo $e->getMessage();
+}
+    </pre>
+    </p>
+    <h4>3.1 获取控制器参数</h4>
+    <a name="params" />
+    <p>
+     控制器参数保存在变量 $_params 数组中，此数组是Aimo_Controller 一个成员变量。如果在 controller 和action 内获取此变量可以this关键字 即 $this->_params ，$_params 包括以下的内容。
+  <pre>
+_m    当前所属模块
+_c    当前所属控制器
+_a    当前所属动作
+及 其它 $_GET 参数 
+如：要获取当前模块 可以
+$this->_params['_a']
+     </pre> 
+     如果要在控制器外获取这些参数可以通过以下方法：
+<pre>
+$controller = Aimo_Controller::getInstance();
+$params   = $controller->_params;
+$module   = $params['_m'];
+//直接访问_params 数组中的key 如果未定义会显示 Notice 错误，建议使用下面的方法 getParam();
+</pre>
+新增方法 $this->getParam('key');
+<pre>
+
+$this->getParam('page');
+$this->getParam('_m');
+</pre>
+  </p>
+    <h4>3.2 模块</h4>
+  <a name="module" />
+    <p>
+    模块位于 app/modules/ 目录下。默认模块为front ， 其它模块必须通过 addModules 方法指定，模块是必须存在的。
+    </p>
+    <h4>3.3 控制器</h4>
+    <a name="controllers" />
+    <p>
+    AF 控制器分为主控制器和负责实现具体功能的其它控制器。 Aimo_Controller 为主控制器 ，下面是一个负责实现具体功能的分控制器 。
+    <pre>
+class mycontroller extends Aimo_Controller{
+	
+    public function init(){
+    
+    }
+}
+    </pre>
+    mycontroller 中可以有一个 init 方法，此方法在调用mycontroller 方法时被执行(类似于类的 构造函数)不过此方法的参数没有作用。类名建立取一个短小的小写字母组成的单词，因为 类名直接关系到url中的一部分。
+    </p>
+    <h4>3.4 动作</h4>
+  <a name="actions" />
+    <p>
+    动作负责具体实现某个功能。如：
+    <pre>
+class mycontroller extends Aimo_Controller{
+	
+    public function init(){
+    
+    }
+    public function indexAction(){
+    
+    }
+}
+    </pre>
+    index 动作是一个控制器的默认动作，如果URL中省略动作则控制器会找默认动作，即index。每个动作必须以 Action 结尾。
+    </p>
+    <div class="totop"><a href="#top">↑TOP</a></div>
+    <h4>3.5 URL统一控制 url() 函数</h4>
+    <a name="urls" />
+  <p>
+    AF 支持三种URL样式。可以通过 主控制器中 $_urlMode 来设置URL 样式。 值为0时为默认URL样式需要重写支持 ，值 为1时为 为path_info 样式，值为2时为原始的URL样式。
+  <pre>
+<span class="k">0.</span>
+/company/Hardware-catid--24-city--136.html
+<span class="k">1.</span>
+/index.php/company/Hardware-catid--24-city--136.html
+<span class="k">2.</span>
+/index.php?_m=company&_first_=Hardware&catid=24&city=136
+
+    </pre>
+    
+    </p>
+    <p>下面说明由URL寻找模块、控制器与action 的顺序。</p>
+    <p>
+    Step.1 如果 通过addModules 指定的模块中有 company 则 company 即为 模块 此时 $this->_params['m'] 值 为company 。
+    </p>
+    <p>
+    Step.2 如果不存在company模块则在 front 模块中寻找 名为 company的控制器。
+    </p>
+    <p>
+    Step.3 如果不存在名为company的控制器则在 front模块中的 index 控制器中找名为 company的action。
+    </p>
+    <p>
+    Step.4 如果最后什么也没有找到则抛出异常 ，NOT FOUND。
+    </p>
+    <p>
+    	AF 中 模块，控制器，动作在url 中都是通过路径的形式体现的，其它的都作为参数。上例中 AF 会对 剩下的部分 Hardware-catid--24-city--136 做倒序分析，中划线 - 相当于普通URL中的 &amp; 双中划线 -- 相当于普通URL中的= 号。最后会余下一个 Hardware ，为了尽量使URL最短，可以把第一个参数隐藏，第一个参数如果隐藏则AF 会自动分配 给 _first_。
+    </p>
+    <p>
+    假设上例中的 company 模块存在 ，company模块下存在 index 控制器 即 app/modules/company/index.php 存在。
+    则 
+    <pre>
+ $this->_params['_m'] == "company";
+ $this->_params['_c'] == 'index';
+ $this->_params['_a'] == 'index';
+ $this->_params['_first_'] == 'Hardware';
+ $this->_params['catid']   == '24';
+ $this->_params['city']    == '136';
+    </pre>
+    $_urlMode 默认为 0， 可以通过初始化 Aimo_Controller 时通过 setUrlMode 指定。也可以在使用 url() 函数时指定要生成的url样式 
+    </p>
+  <p><b>url()函数</b>
+  <pre>
+/**
+ * Build URL
+ * @params array $params   format like $this->_params
+ * @params String $urlMode -1 default urlMode 
+ * @return String   
+ */
+public function url($params,$urlMode = -1){}
+    </pre>
+    如果要生成样式0 的URL  可以在action 中 使用 $this->url($this->_params);生成其它样式只需要指定 $urlMode参数即可。 $params 参数如果不指定 _m 则使用自动使用当前控制器所 属于的module，如果不指定控制器_c 则自动使用当前action 所属于的控制器。此数也可以在视图中直接使用。
+    <pre>
+ // app/modules/company/index.php
+ 
+class index extends Aimo_Controller{
+    public function indexAction(){
+    	$url = $this->url(array('_a' => 'list'));
+        //url 为 /company/list/
+        $url = $this->url(array('_a' => 'list','cid' => '45'));
+        //url 为 /company/list/cid--45.html 
+        //.html 可以通过Aimo_Controller 的 setUrlSuffix()函数来设定，默认为.html
+    }
+    public function listAction(){
+    
+    }
+}
+    </pre>
+    </p>
+    <div class="totop"><a href="#top">↑TOP</a></div>
+    <h4>3.6 高级应用(如何用于认证)</h4>
+    <a name="advance" />
+    <p>
+       我们可以定制自己的 主控制器类，然后所有的分控制器全部扩展为自己的主控制器，这样我们就能够轻易的扩展控制器的功能，而且统一执行某些特定功能。比如认证，我们可以获取已经存在的所有的模块、控制器及动作，然后结合自己的系统进行认证、权限控制。
+<pre>
+//library/Biz/Controller.php
+
+class Biz_Controller extends Aimo_Controller{
+    
+    public function setup(){
+        //auto excute some here.
+        $this->checklogin();
+    }
+    public function mymethod(){
+        //define mymethod here 
+    }
+    public function checklogin(){
+        
+    }
+    public function getAllActions(){
+        
+    }
+}
+</pre>
+    凡是扩展于此类的分控制器，setup 方法自动被执行。 
+    </p>
+    <p>
+    然后在分控制器中全部扩展为自己的主控制器  
+<pre>
+// /app/modules/front/index.php
+
+class index extends Biz_Controller{
+    
+    public function indexAction(){
+        //invoke my method like this.
+        $this->mymethod();
+        
+    }
+}    
+</pre>
+    </p>
+    <div class="totop"><a href="#top">↑TOP</a></div>
+    <h3>第四章、视图(View)</h3>
+    <a name="view" />
+    <p>
+        AF的视图是与 Aimo_Controller 集成在一起的，没有专门的类负责解析视图，Aimo_Controller指定了模块存在的路径，我们需要做的只是按目录结构及 动作的名字放好模板存在的位置。
+    以company为例
+    <pre>
+//app/modules/company/index.php
+class index extends Aimo_Controller{
+    public function indexAction(){
+        
+    }
+}
+//index动作的模板位置应该为
+// app/templets/company/index/index.phtml
+// app/templets/模块名/控制器名/动作名+.phtml
+    </pre>
+
+    </p>
+    <p>
+    为了易于协同开发及提高代码的可读性 AF约定在模板中只出现以下的控制语句。
+    </p>
+    <p>
+    	<pre>
+if():
+
+endif;
+
+if():
+
+else:
+
+endif;
+
+if():
+
+else if():
+
+else:
+
+endif;
+
+foreach():
+
+endforeach;
+        </pre>
+    </p>
+    <h4>4.1 模板扩展名</h4>
+    <a name="tplext" />
+    <p>
+    模板扩展名必须为 .phtml。
+    </p>
+    <h4>4.2 应用控制器中变量、方法</h4>
+    <a name="usethis" />
+    <p>
+    控制器中需要经过赋值才能在模板中应用控制器中的变量，已经存在的方法可以直接使用。
+    <pre>
+// app/modules/company/index.php
+class index extends Aimo_Controller{
+    
+    public function indexAction(){
+        $myvar = ' I hate you !';
+        $this->myvar = $myvar;
+    }
+}  
+    </pre>
+    在模板中使用$myvar变量
+    <pre>
+&lt;!--// app/templets/company/index/index.phtml --&gt
+&lt;!--应用变量--&gt
+&lt;?php echo $this->myvar; ?&gt;
+&lt;!--应用方法--&gt
+&lt;?php echo $this->url(array('_a' =>'list')); ?&gt;
+    </pre>
+    </p>
+    <h4>4.3 指定模板</h4>
+    <a name="spectpl" />
+    <p>
+    可以使用Aimo_Controller 的setTpl() 方法指定具体的模板路径，目前这一项还不太智能，只能指定绝对路径。
+    </p>
+    <h4>4.4 模板引入</h4>
+    <a name="include" />
+    <p>
+    可以在模板中 通过 layout()方法引入其它模板文件，参数可以为绝对路径，如果不指定，系统会在模块级目录中寻找。
+    <pre>
+&lt;!--// app/templets/company/index/index.phtml --&gt
+&lt;?php $this->layout('header'); ?&gt;
+&lt;!--header.phtml 应该存在于 /app/templets/company 目录下。 --&gt
+    </pre>
+     
+    </p>
+    <div class="totop"><a href="#top">↑TOP</a></div>
+    <h3>第五章、表单自动化(Form & Data validation & Data filter) </h3>
+    <a name="Aimo_Form" />
+    <p>
+    AF 的表单 Aimo_Form 可以自动完成表单数据验证与数据过滤，从而提高开发效率。不过 Aimo_Form支持的表单类型与数据验证方法各类，及数据过虑种类还不是很多，需要慢慢完善。Aimo_Form 与表单布局分离，它会自动分解成表单的种个部分，然后在模板中依次引用即可。
+    </p>
+    <h4>5.1 动作中实例化表单</h4>
+    <a name="form_in_action" />
+    <p>
+    只需要在action 中通过new 关键字实例化即可。
+    <pre>
+// app/modules/company/index.php
+class index extends Aimo_Controller{
+    public function indexAction(){
+        $from = new Aimo_Form();
+        //There no form elements
+        $this->form = $form;
+    }
+}
+    </pre>
+    </p>
+    <h4>5.2 新建表单元素</h4>
+    <a name="element" />
+    <p>
+    目前表单元素支持 text,textarea,password,select,radio,checkbox ，其中 radio与 checkbox 需要支持一组属性与值以data属性提供，表单元素支持基本的属性为 
+<pre>
+    name             //表单name属性
+    tag              //表单标签 &lt;input type="" .../&gt;
+    value            //表单值
+    label            //表单名称 如用户名
+    msg              //表单出错提示信息
+    error            //出错提示信息，发生错误时存在，即为msg的值
+    data             //数据源，对select,checkbox,radio
+    description      //表单详细描述
+    validators       //表单验证器
+    filters          //表单过滤器
+    type             //表单类型
+    attribs 数组     //表单属性值
+</pre>
+   新建表单元素
+<pre>
+// app/modules/company/index.php
+class index extends Aimo_Controller{
+    public function indexAction(){
+        $form = new Aimo_Form();
+        
+        //第一个参数 text 即为表单的类型，填写Aimo_Form支持的表单类型。
+        //第二个参数 为 数组格式如下
+        //新建一个input type 为text的表单元素。
+        $form ->addElement(
+            'text',
+            array(
+                'name' => 'username',
+                'value'=> 'username value',
+                'validators' => array(
+                        'NotEmpty',
+                        'LenRange' => array(5,15),
+                    )
+                'attribs' => array(
+                    'class' => 'txt',
+                    'style' => 'color:#333;',
+                    'onclick' => 'javascriptMethod();',
+                    ),
+                )
+            );
+        //新建一个select 表单元素
+        $form ->addElement(
+            'select',
+            array(
+                 'name' => 'city',
+                 'value' => '146',
+                 'data' => array(
+                        '146' => '山东',
+                        '147' => '北京'                     
+                     ),
+                 'validators' => array(
+                     'NotEmpty',
+                     'Numeric',
+                     ),
+                )
+            );
+        //新建一个checkbox 表单元素
+        $form ->addElement(
+            'checkbox',
+            array(
+                'name' =>'love',
+                'value' => '3,4', //自动选中值为 3和4的checkbox
+                'data' =>array(
+                    '3' => '小李',
+                    '4' => '小王'
+                    ),
+                )
+            );
+        //radio 类似checkbox
+        $this->form = $form;
+    }
+}
+</pre>
+    </p>
+    <div class="totop"><a href="#top">↑TOP</a></div>
+    <h4>视图中生成表单</h4>
+    <a name="form_in_view" />
+    <p>
+        应用实例如下：
+<pre>
+&lt;!DOCTYPE html PUBLIC &quot;-//W3C//DTD XHTML 1.0 Transitional//EN&quot;
+    &quot;http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd&quot;&gt;
+&lt;html&gt;
+&lt;head&gt;
+    &lt;meta http-equiv=&quot;Content-type&quot; content=&quot;text/html; charset=utf-8&quot;&gt;
+    &lt;title&gt;header&lt;/title&gt;
+    &lt;style type=&quot;text/css&quot; media=&quot;screen&quot;&gt;
+        body{font-size:12px;}
+    &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+ 
+&lt;form action=&quot;&lt;?php echo $this-&gt;url(array('_a'=&gt;'index')) ?&gt;&quot; method=&quot;post&quot;&gt;
+    &lt;div&gt;
+        &lt;?php echo $this-&gt;form-&gt;username-&gt;label; ?&gt; 
+        &lt;?php echo $this-&gt;form-&gt;username-&gt;tag; ?&gt; 
+        &lt;span class=&quot;error&quot;&gt;&lt;?php echo $this-&gt;form-&gt;username-&gt;error; ?&gt;&lt;/span&gt;
+    &lt;/div&gt;
+    &lt;div &gt;
+        &lt;?php //echo $this-&gt;form-&gt;userid-&gt;tag ?&gt;
+    &lt;/div&gt;
+    &lt;div&gt;
+        &lt;?php echo $this-&gt;form-&gt;province-&gt;label; ?&gt; 
+        &lt;?php echo $this-&gt;form-&gt;province-&gt;tag; ?&gt; 
+        &lt;span class=&quot;error&quot;&gt;&lt;?php echo $this-&gt;form-&gt;province-&gt;error; ?&gt;&lt;/span&gt;
+    &lt;/div&gt;
+    &lt;div&gt;
+        &lt;?php echo $this-&gt;form-&gt;area-&gt;label; ?&gt; 
+        &lt;?php echo $this-&gt;form-&gt;area-&gt;tag; ?&gt; 
+        &lt;span class=&quot;error&quot;&gt;&lt;?php echo $this-&gt;form-&gt;area-&gt;error; ?&gt;&lt;/span&gt;
+    &lt;/div&gt;
+    &lt;div&gt;
+        &lt;?php echo $this-&gt;form-&gt;love-&gt;label; ?&gt; 
+        &lt;?php echo $this-&gt;form-&gt;love-&gt;tag; ?&gt; 
+        &lt;span class=&quot;error&quot;&gt;&lt;?php echo $this-&gt;form-&gt;love-&gt;error; ?&gt;&lt;/span&gt;
+    &lt;/div&gt;
+    &lt;p&gt;&lt;input type=&quot;submit&quot; value=&quot;提交&quot;&gt;&lt;/p&gt;
+&lt;/form&gt;    
+&lt;/body&gt;
+&lt;/html&gt;    
+</pre>
+    </p>
+    <div class="totop"><a href="#top">↑TOP</a></div>  
+    <h4>5.4 表单验证</h4>
+    <a name="validation" />
+    <p>
+    目前表单支持以下验证器
+<pre>
+NotEmpty                //值不为空，empty()函数的别名 无参数
+StrictNotEmpty          //严格不为空 ===比较结果 无参数
+Numeric                 //是否为数字， 无参数
+Max                     //数字最大值 参数为整数
+Min                     //数字最小值 参数为整数
+Range                   //数字值范围 参数为     (整数最小值,整数大值)
+LenMax                  //字符中度最大值 参数为 (整数)
+LenMin                  //字符长度最小值 参数为 (整数)
+LenRange                //字符长度范围   参数为   (整数最小值,整数大值)
+Regex                   //正则表达式匹配 参数为 (正则表达式)
+//下面两个主要用于checkbox验证
+ArrayRange              //数组选定值个数范围 参数为   (整数最小值,整数大值)
+ArrayNotEmpty           //数组是否有值选定
+</pre>
+    验证器第一个参数为表单值,不需要提供参数，如果需要其它的参数则以数组的形式提供。
+    </p>
+    <h4>5.5 表单数据过滤</h4>
+    <a name="filter" />
+    <p>
+    目前支持以下的验证方法
+<pre>
+Trim                    //去除值两边的空格 无参数
+Cut                     //截取表单值的 指定长度 参数 (整数长度值,'字符编码默认UTF-8')
+Int                     //将表单值转换为int
+</pre>
+    </p>
+    <h4>5.6 表单错误显示</h4>
+    <a name="form_error" />
+    <p>
+    除可以在模块中访问单个表单的 错误信息外，Aimo_Form 中的 $_errors 还收集了全部的错误信息
+<pre>
+$this->form->_errors 数组
+</pre>
+    </p>
+    <span class="totop"><a href="#top">↑TOP</a></span>
+    <h4>5.7 表单国际化</h4>
+    <a name="form_i18n" />
+    <p>
+    可以在表单初始化时通过 i18n 参数指定 是否启用 国际化支持。
+<pre>
+    $form = new Aimo_Form(array('i18n' => true));
+</pre>
+    表单启用国际化后，可以在 label,msg,descrition 直接写 语言key的值 ，国际化详情 参阅第八章
+    </p>
+    <h4>5.8 配置文件中生表单</h4>
+    <a name="form_config" />
+    <p>
+    可以在表单初始化时通过 fileConfig 参数指定 是否启用 配置文件生成表单。表单配置文件位置在<br />
+    //app/forms/mudulename/controller_action.php  ，也可以通过 basePath 参数指定配置文件位置。
+<pre>
+$form = new Aimo_Form(array('fileConfig' => true));
+//配置文件内容例子
+// app/forms/company/index_index.php
+
+return array(
+    array(
+        'attribs' => array(
+             'class' => 'txt',
+             ),
+        'type' => 'text',
+        'name' => 'username',
+        'validators' => array(
+            'NotEmpty',
+            'LenRange' => array(5,16)
+            ),
+        'filters' => array(
+            'Trim',
+            'Cut' => array(80),
+            ),
+        'msg' => 'Please_input_username',
+        'label'=> 'company_username'
+        ),
+    array(
+        'attribs' => array(
+             'class' => 'txt',
+             ),
+        'type' => 'select',
+        'name' => 'province',
+        'data' => array(
+            '146' => '山东',
+            '147' => '北京'
+            ),
+        'validators' => array(
+            'NotEmpty',
+            ),
+        'msg' => '请选择省份',
+        'label'=> '省份'
+        ),
+    array(
+        'attribs' => array(
+             'class' => 'txt',
+             ),
+        'type' => 'checkbox',
+        'name' => 'area',
+        'data' => array(
+            '146' => '山东',
+            '147' => '北京'
+            ),
+        'validators' => array(
+            'arrayRange' =>array(1,2),
+            ),
+        'msg' => '请选择省份',
+        'label'=> '省份'
+        ),
+    array(
+        'attribs' => array(
+             'class' => 'txt',
+             ),
+        'type' => 'radio',
+        'name' => 'love',
+        'data' => array(
+            '146' => '山东妮',
+            '147' => '北京妮'
+            ),
+        'validators' => array(
+            'NotEmpty',
+            ),
+        'msg' => '请选择妮',
+        'label'=> '喜欢的妮'
+        )
+    
+    );
+</pre>
+    
+    </p>
+    <h4>5.9 获取验证和过滤后的数据</h4>
+    <a name="form_values" />
+    <p>
+    通过 Aimo_Form 的getValues()方法 获取值
+<pre>
+$post = $from->getValues();
+</pre>
+    </p>
+    <div class="totop"><a href="#top">↑TOP</a></div>   
+    <h3>第六章、验证码(Captcha)  </h3>
+    <a name="captcha" />
+    <h4>6.1 生成验证码</h4>
+    <a name="gen_captcha" />
+    <p>
+<pre>
+       
+        $capt = new Aimo_Captcha(array(
+            'height'  => 50, //生成图片高度
+            'fontSize' =>18,  //字体大小
+            'dotNoiseLevel' =>  1, //点干扰
+            'lineNoiseLevel' => 1  //线干扰 
+            ));
+        $word = $capt->genWord(); //得到图片生成的字符串，用于session存储
+        
+        $capt->generateImage();  //生成图片
+</pre>
+    </p>
+    <h4>6.2 与表单集成</h4>
+    <a name="inter_form" />
+    
+    <p>
+	在Aimo_Form中添加 一个 text 元素作为验证码输入框即可，验证码图片通过正常的 img 标签引入。建议为生成验证码图片做一个单独的action 来处理。然后即可全站通过此验证码。
+	
+    </p>
+    <h3>第七章、数据库操作(Database) </h3>
+    <a name="Aimo_Db" />
+    <h4>7.1 工厂模式</h4>
+    <a name="factory" />
+    <p>
+    Aimo_Db 是通过工厂模式来设计的，目前支持PostgreSQL与mysql 。可自己写支持其它数据库的类文件。生成一个数据库实例。
+ <pre>
+ $db = Aimo_Db::factory('mysql',$_CONFIG['db']);
+ //$_CONFIG['db'] 数组结构如下
+ $_CONFIG = array(
+      'db' => array(
+        'host'      => '192.168.1.20', //数据库主机
+        'port'      => '3306',   // 数据库端口
+        'username'  => 'fushi', //连接数据库的用户名
+        'password'  => 'fushi', //数据库密码
+        'dbname'    => 'fushi', //数据库名称
+        'charset'   => 'utf8',  //数据库编码      
+     )
+  );
+ </pre>
+  要在全站中使用$db 实例，目前可以通过 $GLOBALS['db']方法使用。
+    </p>
+   <h4>7.2 特性</h4>
+   <a name="fether" />
+   <p>
+   		<ul>
+        	<li>按需所取，数据库生成的对象实例为只有在第一次使用时才连接数据库，有效避免了资料浪费</li>
+            <li>丰富的数据操作接口，insert,update,delete 方法可对PHP数组进行直接操作及 各种fetch方法直接取回符合预期的PHP数组。</li>
+            <li>数据插入及数据取出时对数据库的敏感字符已经做了特殊处理。</li>
+            <li>支持事务(Postgresql & Mysql)</li>
+            <li>可自己对错误进行捕捉处理</li>
+        </ul>
+   </p>
+   <h4>7.3 取单行数据(fetchRow)</h4>
+   <a name="fetchrow" />
+   <p>
+<pre>
+//用于取单行数据,直接返回一维数组，键名为字段名称，值 为字段值 
+$db->fetchRow("select * from table where id=1");
+//返回格式为
+array(
+	'title' => 'title',
+    'publishdate'=>'2009-40-12'
+);
+</pre>
+   </p>
+   <h4>7.4 取单一字段数据(fetchOne)</h4>
+   <a name="fetchone" />
+   <p>
+<pre>
+//用于取一个字段的数据，直接返回字段值
+$num = $db->fetchOne("select count(*) as num from table");
+//$num 的返回值为数字， 如： 10
+
+</pre>   
+   </p>
+   <h4>7.5 取所有数据 (fetchAll)</h4>
+   <a name="fetchall" />
+   <p>
+<pre>
+//用于取出一组数组返回二维数组 
+$list = $db->fetchAll("select * from table ");
+//返回结果如下：
+array(
+	0 => array(
+    	'title'=>'标题',
+        'author'=> '作者'
+    	),
+    1 => array(
+    	...
+    )
+    ...
+);
+</pre>
+   </p>
+   <h4>7.6 取键值对数据(fetchPairs)</h4>
+   <a name="pairs" />
+   
+   <p>
+	select 两个字段让第一个字段作为第二个字段的键返回。
+<pre>
+
+$data = $db->fetchPairs("select index,val from config ");
+//假定表中有以下数据
+index	 val
+bj		北京
+wf		潍坊
+sd		山东
+qd		青岛
+//则返回数据格式为
+array(
+	'bj' => '北京',
+	'wf' => '潍坊',
+    ...
+);
+
+</pre>   
+   </p>
+   <h4>7.7 数组插入、更新、删除</h4>
+   <a name="update" />
+   <p>
+<pre>
+//定义setarr 数组格式，键值为数据库字段名称
+$setarr = array(
+    'title' => '标题',
+    'pubdate' => '时间',
+    'author' => '作者',
+    'content' => '内容',
+);
+//插入数据到数据库
+$affect_rows = $db->insert('article',$setarr,$replace=false);
+//返回值 为影响的行数，是一个整数，如果想返回最后插入的自增ID，则可以通过下面的方式
+$lastid = $db->lastInsertId();
+//$replace 为是否使用replace 代替insert 语句，对Mysql 有用,默认为false,即使用insert 方法。
+//更新数据
+$affict_rows = $db->update('article',$setarr,array('id'=>'5'));
+//更新id为5的文章数据
+//删除数据
+$affict_rows  = $db->delete('article',array('id' =>'5'));
+//删除ID为5的文章内容
+//update 和 delete 的条件也可为直接带where的sql字符串 即 
+$where = "Where id=5 ";
+</pre>
+   </p>
+   <h4>7.8 生成Limit 语句</h4>
+   <a name="limit" />
+   <p>
+<pre>
+$sql =	$db->limit("select * from table",10,20);
+返回为 select * from table limit 10,20
+
+</pre>
+   </p>
+   <div class="totop"><a href="#top">↑TOP</a></div> 
+   <h3>第八章、国际化(I18N)</h3>
+   <a name="Aimo_Translator" />
+   <p>
+   	国际化支持通过 Aimo_Translator 来实现,此类首先直接读取 app/languages/cn/common.php 下的语言文件，如果不存在则再找 app/languages/cn/moudle名.php 文件下的语言文件，如果不存在直接返回键名。
+	可自己重给Aimo_Translator 写一个简写函数方便使用。
+<pre>
+    /**
+     * Translate language key to language 
+     *
+     * @param  string $key
+     * @return string
+     */
+    function _($key)
+    {
+        $args = func_get_args();
+
+        $translator = Aimo_Translator::getInstance();
+        $result = call_user_func_array(array($translator,'t'),$args);
+        return $result;
+    }
+</pre>
+支持在语言文件内引用已经定义了的其它key 如：
+<pre>
+return array(
+	'username' => '用户名',
+	'username_not_empty' => '{username}不能为空',
+);
+</pre>
+   </p>
+   <h3>第九章、调试(Debug)</h3>
+   <a name="Aimo_Debug" />
+   <p>
+	可调用  Aimo_Debug::dump();来输出各种数据类型的变量。
+   </p>
+   <h3>第十章、AES加密解密 </h3>
+   <a name="Aimo_Aes" />
+   <p>
+ AES 算法 请Google ,下面会用到密钥及偏移向量定义如下
+ <pre>
+    $AesKey       = 'ABCDEFGHIJUKLMNO0123456789012345';
+    $AesVector    = 'OBK2WOOU65MLRJU3';
+ </pre>
+   </p>
+   <h4>10.1 密码登录实例</h4>
+   <a name="password_login" />
+   <p>
+   在用户注册中我们可以给每个用户单独生成一个密钥或者偏移向量，在用户登录时进行对比。设定用户表字段如下
+<pre>
+username   
+password   
+salt
+name
+
+</pre>
+用户注册时先随机生成一16位的偏移向量做salt ，然后根据统一定义好的 $AesKey 生成密码存入password字段,
+然后把 生成的salt也存入数据库。
+<pre>
+//$salt 必须为16位长的字符串
+$aes = new Aimo_Aes($AesKey, 'CBC', $salt);
+$password = base64_encode($aes->encrypt($_POST['password']));
+
+</pre>
+//登录为相反的过程即解密
+$row = $db->fetchRow("select * from usertable where username='who'");
+取出salt 与登录的密码再次加密与数据库中的密码进行比对。
+   </p>
+   <h4>10.2 Cookie加密</h4>   
+   <a name="cookie" />
+   <p>
+   		可把用户信息从数据库读出后再用aes加密放在cookie 中 读取后再解密 。用以保护用户隐私，不过需要对salt 做特殊处理后也入到cookie 中，
+        这样cookie中存入的信息是加密后的内容，通过查看浏览器的cookie信息如果不知道 密钥及salt处理将不能看到真实的信息。
+   </p>
+   <h3>第十一章、实例(AimoFramework Example for a guestbook)</h3>
+   <a name="example" />
+   <p>
+   	未完成 
+   </p>
+   <div class="totop"><a href="#top">↑TOP</a></div>
+</div>
+<div class="clear" />
+<hr />
+<div id="footer">
+    &copy; 2010 Aimosoft.cn 
+</div>
+</body>
+</html>
