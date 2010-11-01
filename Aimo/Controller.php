@@ -276,8 +276,8 @@ class Aimo_Controller{
         $controller    = strtolower($this->_params['_c']);
         
         if(!class_exists($controller)){
-			throw new Exception($mvc_path." Controller NOT FOUND!");
-		}
+            throw new Exception($mvc_path." Controller NOT FOUND!");
+        }
         $controllerObj = new $controller();
         //Aimo_Debug::dump($this);
         // pass the Aimo_Controller 's vars to new object
@@ -473,9 +473,9 @@ class Aimo_Controller{
         if ($request_uri == '' || $request_uri == 'index.php') {
             
             $this->_params = array('_m' => $this->_defaultModule,
-								   '_c' => $this->_defaultController,
-								   '_a' => $this->_defaultAction,
-								);            
+                                   '_c' => $this->_defaultController,
+                                   '_a' => $this->_defaultAction,
+                                );            
             return $this;
         }
         // strip ?
@@ -540,9 +540,9 @@ class Aimo_Controller{
         }
         parse_str($query_string,$args);
 
-		$_GET = array_merge($_GET,$_args);       
+        $_GET = array_merge($_GET,$_args);       
         
-		$this->_params = array_merge($this->_params,$args,$_GET,$_POST,
+        $this->_params = array_merge($this->_params,$args,$_GET,$_POST,
                                     $_SERVER,$_COOKIE);
         
         return $this;
@@ -606,11 +606,11 @@ class Aimo_Controller{
             }
             $url    .= implode('/',$mvc_params)."/";
             $tmp_url = '';
-			foreach($params as $k => $v){
-				if(!isset($v) || (string)$v ===''){
-					unset($params[$k]);
-				}
-			}
+            foreach($params as $k => $v){
+                if(!isset($v) || (string)$v ===''){
+                    unset($params[$k]);
+                }
+            }
             if (count($params)) {
                 $tmp_url = http_build_query($params,'_'); 
                 if (strpos($tmp_url,'_first_') !== false) {
