@@ -56,6 +56,13 @@ class Aimo_Form
      * @var string
      **/
     protected $_enableI18n = false;
+    
+    /**
+     * Enable Valid flag
+     *
+     * @var boolean
+     **/
+    protected $_enableValid = true;
     /**
      * Construct function
      *
@@ -70,7 +77,9 @@ class Aimo_Form
         if (isset($options['i18n']) && $options['i18n']) {
             $this->enableI18n(true);
         }
-        
+        if (isset($options['valid']) && $options['valid']) {
+            $this->enableValid($options['valid']);
+        }        
         if (isset($options['fileConfig']) && $options['fileConfig'] ) {
             //Manaul set form config file.
 			if (isset($options['configFile'])){
@@ -107,6 +116,18 @@ class Aimo_Form
     public function enableI18n($flag = false)
     {
         $this->_enableI18n = $flag;
+        return $this;
+    }
+    
+    /**
+     * Enable valid
+     *
+     * @return Aimo_Form
+     */
+    public function enableValid($flag = true)
+    {
+        $this->_enableValid = $flag;
+        return $this;
     }
     /**
      * Add an element for the form
@@ -340,9 +361,13 @@ class Aimo_Form
             $typefun = $element->type.'Element';
             $this->$typefun($element->name);
             //Aimo_Debug::dump($this->$name);
+            if (!$this->_enableValid) {
+                continue;
+            }
             if (!count($element->validators)) {
                 continue;
             }
+            
             foreach ($element->validators as $method => $args) {
                 
                 if (is_int($method)) {
