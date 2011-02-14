@@ -539,11 +539,13 @@ class Aimo_Controller{
             $query_string = '_first_='.$query_string;
         }
         parse_str($query_string,$args);
+		
+		if(isset($_args) && count($_args)){
+			$_GET = array_merge($_GET,$_args); 
+		}
 
-        $_GET = array_merge($_GET,$_args);       
-        
-        $this->_params = array_merge($this->_params,$args,$_GET,$_POST,
-                                    $_SERVER,$_COOKIE);
+        //$this->_params = array_merge($this->_params,$args,$_GET,$_POST,
+        //                            $_SERVER,$_COOKIE);
         
         return $this;
     }
