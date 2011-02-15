@@ -540,12 +540,12 @@ class Aimo_Controller{
         }
         parse_str($query_string,$args);
 		
-		if(isset($_args) && count($_args)){
-			$_GET = array_merge($_GET,$_args); 
+		if(isset($args) && count($args)){
+			$_GET = array_merge($_GET,$args); 
 		}
 
-        //$this->_params = array_merge($this->_params,$args,$_GET,$_POST,
-        //                            $_SERVER,$_COOKIE);
+        $this->_params = array_merge($this->_params,$_GET,$_POST,
+                                    $_SERVER,$_COOKIE);
         
         return $this;
     }
