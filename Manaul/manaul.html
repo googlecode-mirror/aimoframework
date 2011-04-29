@@ -692,6 +692,19 @@ ArrayRange              //数组选定值个数范围 参数为   (整数最小�
 ArrayNotEmpty           //数组是否有值选定
 </pre>
     验证器第一个参数为表单值,不需要提供参数，如果需要其它的参数则以数组的形式提供。
+	现在已经支持客户端js验证，使用方法为,引入validator.js文件，给Form上添加上  onsubmit 方法，并在 实例化表单的时候启用clientValidate
+<pre>
+$form = new Aimo_Form(
+	array('fileConfig' => true,
+		  'i18n' => true,
+		  'clientValidate'=>true
+	));
+</pre>
+表单中,第二个参数为出错信息提示方式，1 为alert方式 2 为表单元素突出显示（红色）3 为在表单元素边上创建一个span 并将错误信息添加其中。
+<pre>
+
+ onsubmit="return Aimo_Validator.Validate(this,3);"
+</pre>
     </p>
     <h4>5.5 表单数据过滤</h4>
     <a name="filter" />
