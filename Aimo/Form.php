@@ -79,7 +79,10 @@ class Aimo_Form
         }
         if (isset($options['valid']) && $options['valid']) {
             $this->enableValid($options['valid']);
-        }        
+        } 
+        if (isset($options['clientValidate']) && $options['clientValidate']) {
+            $this->setClientValidate($options['clientValidate']);
+        } 
         if (isset($options['fileConfig']) && $options['fileConfig'] ) {
             //Manaul set form config file.
 			if (isset($options['configFile'])){
@@ -100,8 +103,8 @@ class Aimo_Form
                 throw new Exception($config_file." Does not exists !");
                 
             }
-            foreach ($form_options as $option) {
-                $type = isset($option['type'])?$option['type']:'';
+            foreach ($form_options as $type => $option) {
+                //$type = isset($option['type'])?$option['type']:$type;
                 $this->addElement($type,$option);
             }
         }
@@ -296,7 +299,7 @@ class Aimo_Form
             $checked = (string)$val === $value?'checked="checked"':'';
             $tag .= ' '.$checked.' /></li>'.PHP_EOL;
         }
-        $tag .='</ul>';
+        $tag .="\t".'</ul>';
         
         $this->$name->tag = $tag;
         return $this;           
@@ -328,7 +331,7 @@ class Aimo_Form
             $checked = in_array($val,$values) ?'checked="checked"':'';
             $tag .= ' '.$checked.' /><span>'.$label.'</span></li>'.PHP_EOL;
         }
-        $tag .='</ul>';
+        $tag .= "\t".'</ul>';
         $this->$name->tag = $tag;
         return $this;        
     }
@@ -544,7 +547,7 @@ class Aimo_Form
                 }else {
                     $attribsString .=$comar.$key;
                 }
-                $comar = ',';
+                $comar = '&&';
             }
             $attribsString.='"'; 
         }
