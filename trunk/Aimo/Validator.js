@@ -108,6 +108,7 @@ var Aimo_Validator={
 		var ElNum = obj.elements.length;
 		var MultiEl = {};
 		var result = true;
+		var validators= new Array();
 		for(var i=0;i< ElNum;i++){
 			
 			with(obj.elements[i]){
@@ -120,7 +121,7 @@ var Aimo_Validator={
 					var onEl = this.parentEl(this.parentEl(obj.elements[i]));
 					var tmp = onEl.getAttribute("validators");
 					if(tmp == null || tmp=='') continue;
-					var validators = tmp.split("&&");
+					var validator_arr = tmp.split("&&");
 					var val = "[";
 					var com = "";
 					var boxEl = obj.elements[name];
@@ -139,7 +140,7 @@ var Aimo_Validator={
 					var onEl = this.parentEl(this.parentEl(obj.elements[i]));
 					var tmp = onEl.getAttribute("validators");
 					if(tmp == null || tmp=='') continue;
-					var validators = tmp.split("&&");
+					var validator_arr = tmp.split("&&");
 					var val = "\'\'";
 					
 					var boxEl = obj.elements[name];
@@ -155,20 +156,26 @@ var Aimo_Validator={
 					var onEl = obj.elements[i];
 					var tmp = getAttribute("validators");
 					if(tmp == null || tmp=='') continue;
-					var validators = tmp.split("&&");
+					var validator_arr = tmp.split("&&");
+					alert(tmp);
 					var val		   = "\'"+obj.elements[i].value+"\'";
 					var msg		   = getAttribute("msg");	
 				}
+				//alert(validators);
 				 
-				for(var j = 0;j < validators.length;j++){
+				for(var j = 0;j < validator_arr.length;j++){
 					var func = 'var ret = this.';
-					var posBegin  = validators[j].indexOf("(")+1;
+					var posBegin  = validator_arr[j].indexOf("(")+1;
 					if(posBegin ==0){
-						func+=validators[j]+"("+val+")";
+						func+=validator_arr[j]+"("+val+")";
 					}else{
-						func+=validators[j].replace("(","("+val+",");
-					}					
+						func+=validator_arr[j].replace("(","("+val+",");
+					}	
+					try{				
 					eval(func);
+				    }catch(e){
+			            alert(msg);
+				    }
 					if(!ret){
 						result = ret;
 					}
@@ -222,7 +229,7 @@ var Aimo_Validator={
 	},
 	AddError : function(obj, str){
 		this.ErrorItem[this.ErrorItem.length] = obj;
-		this.ErrorMessage[this.ErrorMessage.length] = this.ErrorMessage.length + ":" + str;
+		this.ErrorMessage[this.ErrorMessage.length] = (this.ErrorMessage.length+1) + ":" + str;
 	},
 	parentEl:function(el){
 		var parent =el.parentNode;
