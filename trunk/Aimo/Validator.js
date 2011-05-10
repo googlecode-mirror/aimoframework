@@ -157,7 +157,6 @@ var Aimo_Validator={
 					var tmp = getAttribute("validators");
 					if(tmp == null || tmp=='') continue;
 					var validator_arr = tmp.split("&&");
-					alert(tmp);
 					var val		   = "\'"+obj.elements[i].value+"\'";
 					var msg		   = getAttribute("msg");	
 				}
@@ -170,12 +169,9 @@ var Aimo_Validator={
 						func+=validator_arr[j]+"("+val+")";
 					}else{
 						func+=validator_arr[j].replace("(","("+val+",");
-					}	
-					try{				
+					}				
 					eval(func);
-				    }catch(e){
-			            alert(msg);
-				    }
+
 					if(!ret){
 						result = ret;
 					}
