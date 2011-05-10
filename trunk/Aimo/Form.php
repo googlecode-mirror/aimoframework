@@ -105,7 +105,7 @@ class Aimo_Form
             }
             foreach ($form_options as $type => $option) {
                 //$type = isset($option['type'])?$option['type']:$type;
-                $this->addElement($type,$option);
+                $this->addElement($option['type'],$option);
             }
         }
     }
