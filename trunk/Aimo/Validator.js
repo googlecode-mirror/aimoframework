@@ -113,17 +113,15 @@ var Aimo_Validator={
 			with(obj.elements[i]){
 				var Type = getAttribute("type");
 				var name = getAttribute("name");
-				var validators = null;
-				var msg        = null;
-				var val		   = null;
+
 				if(Type == 'checkbox'){
 					if(MultiEl[name]) continue;
 					MultiEl[name] = true;
 					var onEl = this.parentEl(this.parentEl(obj.elements[i]));
 					var tmp = onEl.getAttribute("validators");
 					if(tmp == null || tmp=='') continue;
-					validators = tmp.split("&&");
-					val = "[";
+					var validators = tmp.split("&&");
+					var val = "[";
 					var com = "";
 					var boxEl = obj.elements[name];
 					for(var i=0;i< boxEl.length;i++){
@@ -133,7 +131,7 @@ var Aimo_Validator={
 						com = ",";
 					}
 					val +="]";
-					msg   = onEl.getAttribute("msg");
+					var msg   = onEl.getAttribute("msg");
 					
 				}else if(Type == 'radio'){
 					if(MultiEl[name]) continue;
@@ -141,8 +139,8 @@ var Aimo_Validator={
 					var onEl = this.parentEl(this.parentEl(obj.elements[i]));
 					var tmp = onEl.getAttribute("validators");
 					if(tmp == null || tmp=='') continue;
-					validators = tmp.split("&&");
-					 val = "\'\'";
+					var validators = tmp.split("&&");
+					var val = "\'\'";
 					
 					var boxEl = obj.elements[name];
 					for(var i=0;i< boxEl.length;i++){
@@ -151,15 +149,15 @@ var Aimo_Validator={
 							break;
 						}
 					}
-					msg   = onEl.getAttribute("msg");					
+					var msg   = onEl.getAttribute("msg");					
 
 				}else{
 					var onEl = obj.elements[i];
 					var tmp = getAttribute("validators");
 					if(tmp == null || tmp=='') continue;
-					validators = tmp.split("&&");
-					val		   = "\'"+obj.elements[i].value+"\'";
-					msg		   = getAttribute("msg");	
+					var validators = tmp.split("&&");
+					var val		   = "\'"+obj.elements[i].value+"\'";
+					var msg		   = getAttribute("msg");	
 				}
 				 
 				for(var j = 0;j < validators.length;j++){
