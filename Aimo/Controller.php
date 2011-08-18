@@ -354,6 +354,14 @@ class Aimo_Controller{
         $this->_urlSuffix = $urlSuffix;
         return $this;
     }
+	/**
+	 * set default urlMode
+	 * @return Aimo_Controller
+	 */
+	public function setUrlMode($urlModel = -1)
+	{
+		$this->_urlMode = $urlModel;
+	}
     /**
      * Set the default module
      *
@@ -582,7 +590,8 @@ class Aimo_Controller{
      */
     public function url($params=array(),$urlMode = -1)
     {
-        $mvc_params = array();
+        
+		$mvc_params = array();
         $url  = '/'.$this->_baseUrl;
        
         $mvc_params['_m'] = isset($params['_m'])?$params['_m']:$this->_params['_m'];
