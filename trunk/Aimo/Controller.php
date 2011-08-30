@@ -470,7 +470,7 @@ class Aimo_Controller{
         
        // support path info such as index.php/company/list
         if (isset($_SERVER['PATH_INFO']) && null !== $_SERVER['PATH_INFO'] 
-                && is_string($_SERVER['PATH_INFO'])) {
+                && is_string($_SERVER['PATH_INFO']) && !empty($_SERVER['PATH_INFO'])) {
             
             $request_uri = $_SERVER['PATH_INFO'];
         }
