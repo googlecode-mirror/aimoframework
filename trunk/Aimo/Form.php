@@ -98,10 +98,12 @@ class Aimo_Form
             $form_options = array();
                 
             if (is_file($config_file)) {
-                $form_options = @include $config_file;
+                $form_options = include $config_file;
             }else {
-                throw new Exception($config_file." Does not exists !");
-                
+                $e =  new Exception($config_file." Does not exists !");
+
+				Aimo_Debug::dump($e->getTrace());
+				throw $e;
             }
             foreach ($form_options as $type => $option) {
                 //$type = isset($option['type'])?$option['type']:$type;
@@ -176,7 +178,9 @@ class Aimo_Form
         $type    = strtolower($type);
         $typefun = $type.'Element';
         if (!method_exists(__CLASS__,$typefun)) {
-            throw new Exception("There no an element type $type");   
+            $e =  new Exception("There no an element type $type");  
+			Aimo_Debug::dump($e->getTrace());
+			throw $e;
         }
         $this->$typefun($element->name);
         return $this;   
@@ -381,7 +385,10 @@ class Aimo_Form
                 //add checkbox validator
                 
                 if (!method_exists('Aimo_Validator',$method)) {
-                     trigger_error("Aimo_Validator::$method does not exist", E_USER_NOTICE);
+					 $e = new Exception("Aimo_Validator::$method does not exist");
+					 Aimo_Debug::dump($e->getTrace());
+					 throw $e;
+                      
                     continue;    
                 }
                 if ('Array' == substr($method,0,5) && is_array($values[$name])) {
@@ -463,7 +470,9 @@ class Aimo_Form
                 $method     = ucfirst($method);
                 
                 if (!method_exists('Aimo_Filter',$method)) {
-                    trigger_error("Aimo_Filter::$method does not exist", E_USER_NOTICE);
+					 $e = new Exception("Aimo_Filter::$method does not exist");
+					 Aimo_Debug::dump($e->getTrace());
+					 throw $e;
                 }
                 $args   = empty($args)?array():$args;
                 $post[$name] = isset($post[$name])?$post[$name]:'';

@@ -265,8 +265,11 @@ class Aimo_Db_Mysql
         $result = @mysql_query($sql);
         array_push($this->_debug,$sql);
         if (!$result) {
-            throw new Exception(mysql_errno().":".
+            $e = new Exception(mysql_errno().":".
                     mysql_error($this->_connection).PHP_EOL."SQL:".$sql);
+					
+			Aimo_Debug::dump($e->getTrace());
+			throw $e;
         }
         $this->_count++;
         return $result;

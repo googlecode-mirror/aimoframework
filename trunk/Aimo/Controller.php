@@ -268,7 +268,9 @@ class Aimo_Controller{
                           $mvc_path.'.php';
         if (!is_file($controllerPath)) {
             
-            throw new Exception($mvc_path." Controller NOT FOUND!");
+            $e = new Exception($mvc_path." Controller NOT FOUND!");
+			Aimo_Debug::dump($e->getTrace());
+			throw $e;
         }
 
         require $controllerPath;
@@ -276,7 +278,9 @@ class Aimo_Controller{
         $controller    = strtolower($this->_params['_c']);
         
         if(!class_exists($controller)){
-            throw new Exception($mvc_path." Controller NOT FOUND!");
+            $e = new Exception($mvc_path." Controller NOT FOUND!");
+			Aimo_Debug::dump($e->getTrace());
+			throw $e;
         }
         $controllerObj = new $controller();
         //Aimo_Debug::dump($this);
@@ -299,7 +303,9 @@ class Aimo_Controller{
         // Call action
         $action = $this->_params['_a'].'Action';
         if (!method_exists($this->_params['_c'],$action)) {
-            throw new Exception($this->_params['_a']." NOT FOUND IN ".$mvc_path);
+            $e = new Exception($this->_params['_a']." NOT FOUND IN ".$mvc_path);
+			Aimo_Debug::dump($e->getTrace());
+			throw $e;
         }else {
             $controllerObj->{$action}();
         }
@@ -690,10 +696,16 @@ class Aimo_Controller{
                 $tpl[1]     = 'default'.DIRECTORY_SEPARATOR;
                 $this->_tpl = implode('',$tpl);  
                 if (!is_file($this->_tpl)) {
-                    throw new Exception('Templete '.$this->_tpl.' NOT EXISTS!');    
+                    $e = new Exception('Templete '.$this->_tpl.' NOT EXISTS!');  
+					
+					Aimo_Debug::dump($e->getTrace());
+					throw $e;
                 }
             }else {
-                throw new Exception('Templete '.$this->_tpl.' NOT EXISTS!');    
+                $e = new Exception('Templete '.$this->_tpl.' NOT EXISTS!');  
+				
+				Aimo_Debug::dump($e->getTrace());
+				throw $e;
             }
         }
         ob_start();
@@ -714,6 +726,13 @@ class Aimo_Controller{
              .$this->_tplDir.DIRECTORY_SEPARATOR
              .$this->_params['_m'].DIRECTORY_SEPARATOR;
              //.$this->_params['_c'].DIRECTORY_SEPARATOR;
-        include $path.$filename.'.phtml';       
+		$tplfile = $path.$filename.'phtml';
+		if(is_file($tplfile)){
+			include $path.$filename.'.phtml';
+		}else{
+		    $e = new Exception('Sub template '.$tplfile.' does not exists!');
+			throw $e;
+			Aimo_Debug::dump($e->getTrace());
+		}
     }
 }
