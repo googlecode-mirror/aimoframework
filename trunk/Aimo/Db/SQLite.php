@@ -247,7 +247,7 @@ class Aimo_Db_SQLite
             //unset($bind);
             $sql = vsprintf($sql,$bind);
         }        
-        $result = sqlite_query($this->_connection,$sql,SQLITE_ASSOC,$error);
+        $result = sqlite_query($this->_connection,$sql,Aimo_Db::FETCH_ASSOC,$error);
         if (!$result) {
             throw new Exception($error."SQL:".$sql);
         }
@@ -260,7 +260,7 @@ class Aimo_Db_SQLite
      * @param  int       $fetchMode     
      * @return array
      */
-    public function fetch($stmt,$fetchMode=SQLITE_ASSOC )
+    public function fetch($stmt,$fetchMode=Aimo_Db::FETCH_ASSOC )
     {
         $row = @sqlite_fetch_array($stmt,$fetchMode);
         $row = self::_stripQuote($row);
@@ -407,7 +407,7 @@ class Aimo_Db_SQLite
      * @param mixed                 $fetchMode Override current fetch mode.
      * @return array
      */
-    public function fetchRow($sql, $bind = array(), $fetchMode = MYSQL_ASSOC)
+    public function fetchRow($sql, $bind = array(), $fetchMode = Aimo_Db::FETCH_ASSOC)
     {
 
         $stmt = $this->query($sql, $bind);
@@ -452,7 +452,7 @@ class Aimo_Db_SQLite
     {
         $stmt = $this->query($sql, $bind);
         $data = array();
-        $data = @sqlite_fetch_array($stmt,SQLITE_ASSOC );
+        $data = @sqlite_fetch_array($stmt,Aimo_Db::FETCH_ASSOC );
         return self::_stripQuote($data);
     }
 
@@ -470,7 +470,7 @@ class Aimo_Db_SQLite
     {
         $result = $this->query($sql, $bind);
         $data = array();
-        while ($row = @sqlite_fetch_array($result,SQLITE_ASSOC)) {
+        while ($row = @sqlite_fetch_array($result,Aimo_Db::FETCH_ASSOC)) {
             $row = self::_stripQuote($row);
             $data[$row[0]] = $row[1];
         }
