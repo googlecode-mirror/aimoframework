@@ -726,7 +726,7 @@ class Aimo_Controller{
              .$this->_tplDir.DIRECTORY_SEPARATOR
              .$this->_params['_m'].DIRECTORY_SEPARATOR;
              //.$this->_params['_c'].DIRECTORY_SEPARATOR;
-		$tplfile = $path.$filename.'phtml';
+		$tplfile = $path.$filename.'.phtml';
 		if(is_file($tplfile)){
 			include $path.$filename.'.phtml';
 		}else{
