@@ -539,7 +539,7 @@ class Aimo_Controller{
             $this->_params['_c'] = $this->_defaultController;
         }
         if (count($path) && !empty($path[0])
-             && preg_match('/[a-z0-9]+/i',$path[0])) {
+             && preg_match('/^[a-z0-9]+$/i',$path[0])) {
             $this->_params['_a'] = array_shift($path);
         }
         if (!isset($this->_params['_a'])) {
