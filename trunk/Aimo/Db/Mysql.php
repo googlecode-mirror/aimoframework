@@ -107,7 +107,7 @@ class Aimo_Db_Mysql
         mysql_select_db($this->_config['dbname'],$this->_connection);
         if ( !empty( $this->_config['charset'] ) ) {
             $sql_query = "SET NAMES '" . $this->_config['charset'] . "'";
-            @mysql_query( $this->_connection, $sql_query );
+            @mysql_query( $sql_query,$this->_connection );
         }
     }
     /**
